@@ -13,6 +13,7 @@ import com.sales.management.entity.LeadsEntity;
 import com.sales.management.entity.ProjectEntity;
 
 @RestController
+@CrossOrigin(origins = "http://31.97.203.68:9081/")
 public class ProjectController {
 
     @Autowired
