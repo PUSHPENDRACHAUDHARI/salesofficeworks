@@ -9,7 +9,6 @@ import com.sales.management.dto.LoginResponse;
 import com.sales.management.entity.RegisterEntity;
 
 @RestController
-@CrossOrigin(origins = "http://31.97.203.68:9081/")
 public class LoginController {
 
     @Autowired
