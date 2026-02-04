@@ -17,7 +17,7 @@ export class LoginComponent {
   message = '';
   isError = false;
 
-  private baseUrl = 'http://31.97.203.68:9081/';
+  private baseUrl = 'http://31.97.203.68:9092';
 
   constructor(private http: HttpClient, private router: Router) {}
 
