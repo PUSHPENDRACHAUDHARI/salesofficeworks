@@ -1,21 +1,15 @@
-
 services:
   mysql:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sales_management
-    ports:
-      - "3309:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
   backend:
-    image: management-sales-ci-cd-backend
-    build:
-      context: ./management
-    ports:
-      - "9092:8080"
+    build: ./management
+    container_name: backend
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sales_management?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
@@ -24,13 +18,11 @@ services:
       - mysql
 
   frontend:
-    image: management-sales-ci-cd-frontend
-    build:
-      context: ./salesmanagement1
-    ports:
-      - "9081:80"
+    build: ./salesmanagement1
+    container_name: frontend
     depends_on:
       - backend
 
 volumes:
   mysql-data:
+
