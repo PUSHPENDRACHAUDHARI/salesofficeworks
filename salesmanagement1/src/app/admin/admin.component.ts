@@ -154,7 +154,7 @@ resetTaskFilters() {
     role: 'USER'
   };
 
-  private baseUrl = 'http://31.97.203.68:9092';
+  private baseUrl = '/api';
 
   // 🔹 Chart instances
   leadsChart: Chart<'doughnut', number[], string> | null = null;

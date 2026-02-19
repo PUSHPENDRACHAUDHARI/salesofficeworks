@@ -165,7 +165,7 @@ resetUserTaskFilter() {
 
   leadForm: any = {};
 
-  private baseUrl = 'http://31.97.203.68:9092';
+  private baseUrl = '/api';
 
   constructor(
     private http: HttpClient,

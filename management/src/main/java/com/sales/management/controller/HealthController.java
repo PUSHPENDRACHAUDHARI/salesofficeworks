@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HealthController {
 
-    @GetMapping("http://31.97.203.68:9092/")
+    @GetMapping("/health")
     public String health() {
         return "Backend is running successfully";
     }
