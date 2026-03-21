@@ -1,6 +1,9 @@
-
 pipeline {
     agent any
+
+    tools {
+        sonarQube 'sonar-scanner'
+    }
 
     environment {
         COMPOSE_FILE = "docker-compose.yml"
@@ -15,15 +18,30 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
-    steps {
-        sh '''
-        docker-compose down || true
-        docker rm -f management-mysql || true
-        '''
-    }
-}
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
 
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Stop Old Containers') {
+            steps {
+                sh '''
+                docker-compose down || true
+                docker rm -f management-mysql || true
+                '''
+            }
+        }
 
         stage('Build Docker Images') {
             steps {
@@ -40,11 +58,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment Successful!"
+            echo "✅ Deployment Successful with Code Quality Check!"
         }
         failure {
-            echo "❌ Deployment Failed!"
+            echo "❌ Pipeline Failed (Check SonarQube or Build Logs)"
         }
     }
 }
-
